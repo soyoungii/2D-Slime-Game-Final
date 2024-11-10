@@ -30,15 +30,19 @@ public class Thunder : MonoBehaviour
             for (int i = 0; i < 8; i++)
             {
                 Monster target = FindNearestMonsterInRange();
+                Vector3 spawnPosition;
+
                 if (target != null)
                 {
-                    Vector3 spawnPosition = new Vector3(
-                        target.transform.position.x,
-                        target.transform.position.y,
-                        target.transform.position.z
-                    );
+                    spawnPosition = target.transform.position;
                     GameObject thunder = Instantiate(thunderPrefab, spawnPosition, Quaternion.identity);
                     target.TakeDamage(slime.damage);
+                    Destroy(thunder, 1f);
+                }
+                else
+                {
+                    spawnPosition = slime.transform.position + new Vector3(detectionRange, 0f, 0f);
+                    GameObject thunder = Instantiate(thunderPrefab, spawnPosition, Quaternion.identity);
                     Destroy(thunder, 1f);
                 }
                 yield return new WaitForSeconds(0.5f);

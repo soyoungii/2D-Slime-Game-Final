@@ -37,11 +37,17 @@ public class Starlight : MonoBehaviour
 
             for (int i = 0; i < projectileCount; i++)
             {
-                Monster target = FindNearestMonsterInRange(); 
+                Monster target = FindNearestMonsterInRange();
+                GameObject starlight = Instantiate(starlightPrefab, starlightPrefab.transform.position, Quaternion.identity);
+
                 if (target != null)
                 {
-                    GameObject starlight = Instantiate(starlightPrefab, starlightPrefab.transform.position, Quaternion.identity);
                     StartCoroutine(MoveProjectile(starlight, target));
+                }
+                else
+                {
+                    Vector3 targetPosition = slime.transform.position + new Vector3(attackRange, 0f, 0f);
+                    StartCoroutine(MoveProjectileToPosition(starlight, targetPosition));
                 }
 
                 yield return new WaitForSeconds(spawnInterval);
@@ -93,6 +99,24 @@ public class Starlight : MonoBehaviour
             yield return null;
         }
     }
+    private IEnumerator MoveProjectileToPosition(GameObject projectile, Vector3 targetPosition)
+    {
+        while (projectile != null)
+        {
+            Vector3 direction = (targetPosition - projectile.transform.position).normalized;
+            projectile.transform.position += direction * projectileSpeed * Time.deltaTime;
+
+            float distanceToTarget = Vector3.Distance(projectile.transform.position, targetPosition);
+            if (distanceToTarget < 0.1f)
+            {
+                Destroy(projectile);
+                yield break;
+            }
+
+            yield return null;
+        }
+    }
+
     private IEnumerator Cooldown()
     {
         float elapsed = 0f;

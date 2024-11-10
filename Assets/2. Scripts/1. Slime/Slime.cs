@@ -41,13 +41,18 @@ public class Slime : MonoBehaviour
 
     [Header("투사체")]
     public GameObject projectilePrefab;
-    private float findRange = 4f; // 탐지 범위
+    private float findRange = 4f;
     private float projectileSpeed = 10f;
     private float nextFireTime;
 
     private Vector3 respawnPosition;
     private Spawner spawner;
 
+    private void Awake()
+    {
+        spawner = FindObjectOfType<Spawner>(); 
+
+    }
     private void Start()
     {
         currentHp = maxHp;
@@ -165,7 +170,7 @@ public class Slime : MonoBehaviour
         {
             var Hitslime = Instantiate(hitParticle, hitParticle.transform.position, quaternion.identity);
             Hitslime.Play();
-            Destroy(Hitslime, 1f);
+            Destroy(Hitslime.gameObject, 1f);
         }
         if (currentHp <= 0)
         {
@@ -180,16 +185,10 @@ public class Slime : MonoBehaviour
            spawner.ResetMonsterStats();
         }
 
-        Monster[] allMonsters = FindObjectsOfType<Monster>();
-        foreach (Monster monster in allMonsters)
-        {
-            monster.SlimeDie();
-        }
-
         currentHp = maxHp;
         var particle = Instantiate(reviveSlime, reviveSlime.transform.position, quaternion.identity);
         particle.Play();
-        Destroy(particle.gameObject, 2f);
+        Destroy(particle.gameObject, 1f);
     }
   
     public void DamageLevelUp()
@@ -245,7 +244,7 @@ public class Slime : MonoBehaviour
     {
         if (gold >= (criticalLevel + 1) * 10)
         {
-            critical = Mathf.Min(100f, critical + 1f); // 최대 100%로 제한
+            critical = Mathf.Min(100f, critical + 1f); 
             gold -= (criticalLevel + 1) * 10;
             criticalLevel++;
             LevelUpEffect();
@@ -291,7 +290,7 @@ public class Slime : MonoBehaviour
     {
         if (gold >= (dShotLevel + 1) * 10)
         {
-            doubleShot = Mathf.Min(100f, doubleShot + 1f); // 최대 100%로 제한
+            doubleShot = Mathf.Min(100f, doubleShot + 1f);
             gold -= (dShotLevel + 1) * 10;
             dShotLevel++;
             LevelUpEffect();

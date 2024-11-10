@@ -10,11 +10,10 @@ public class Spawner : MonoBehaviour
 
     public GameObject monsterPrefab; // 적 프리팹
     public float spawnInterval = 3f; 
-    private float plusHp = 0.1f;
-    private float plusDamage = 1f;
-    private int waveCount = 0;  
+    private int waveCount = 0;
+    private int wavesSinceReset = 0;
 
-    private float spawnStartX = 3.5f; // 첫 번째 몬스터 스폰 위치
+    private float spawnStartX = 4f; // 첫 번째 몬스터 스폰 위치
     public float monsterSpacing = 0.5f; // 몬스터 간 간격
 
     private float baseHp;
@@ -37,8 +36,10 @@ public class Spawner : MonoBehaviour
             if (monsters.Length == 0)
             {
                 waveCount++;
-                Spawn(monsterCount); 
+                wavesSinceReset++;
+                Spawn(monsterCount);
             }
+
 
             yield return new WaitForSeconds(spawnInterval); 
         }
@@ -57,25 +58,25 @@ public class Spawner : MonoBehaviour
             Monster monster = monsterObject.GetComponent<Monster>();
             if (monster != null)
             {
-                if (waveCount == 1)
+                if (wavesSinceReset == 1)
                 {
                     monster.SetHp(baseHp);
                     monster.SetDamage(baseDamage);
                 }
                 else
                 {
-                    float hp = baseHp * (1 + (waveCount - 1) * plusHp);
-                    float damage = baseDamage * (1 + (waveCount - 1) * plusDamage);
-                    monster.SetHp(hp);
-                    monster.SetDamage(damage);
-                }
 
+                    float newHp = baseHp * (1 + ((wavesSinceReset - 1) * 0.1f));
+                    float newDamage = baseDamage * (1 + ((wavesSinceReset - 1) * 1f));
+                    monster.SetHp(newHp);
+                    monster.SetDamage(newDamage);
+                }
             }
         }
     }
 
     public void ResetMonsterStats()
     {
-        waveCount = 0;
+        wavesSinceReset = 0;
     }
 }

@@ -30,13 +30,21 @@ public class Meteor : MonoBehaviour
         while (true)
         {
             cooldownImage.fillAmount = 1f;
-            Monster target = FindNearestMonsterInRange(); 
+            Monster target = FindNearestMonsterInRange();
+            Vector3 targetPosition;
+
             if (target != null)
             {
-                GameObject meteor = Instantiate(meteorPrefab, meteorPrefab.transform.position, Quaternion.identity);
-                StartCoroutine(MoveMeteor(meteor, target.transform.position));
-                Destroy(meteor, 2f);
+                targetPosition = target.transform.position;
             }
+            else
+            {
+                targetPosition = slime.transform.position + new Vector3(detectionRange, 0f, 0f);
+            }
+
+            GameObject meteor = Instantiate(meteorPrefab, meteorPrefab.transform.position, Quaternion.identity);
+            StartCoroutine(MoveMeteor(meteor, targetPosition));
+            Destroy(meteor, 2f);
 
             yield return StartCoroutine(Cooldown());
         }
@@ -68,7 +76,7 @@ public class Meteor : MonoBehaviour
                                 monster.TakeDamage(slime.damage * 12f);
                                 var particle = Instantiate(bombParticle, monster.transform.position, Quaternion.identity);
                                 particle.Play();
-                                Destroy(particle, 1f);
+                                Destroy(particle.gameObject, 1f);
                             }
                         }
                     }
