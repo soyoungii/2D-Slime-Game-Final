@@ -19,18 +19,12 @@ public class BackGround : MonoBehaviour
     }
     private void Update()
     {
-        // 범위 내 몬스터 확인
         bool monsterInRange = CheckForMonstersInRange();
-
-        // 몬스터가 범위 내에 없을 때만 이동
         if (!monsterInRange)
         {
             transform.Translate(Vector2.left * speed * Time.deltaTime);
-
-            // 배경이 끝까지 이동했는지 확인
             if (transform.position.x <= resetPosition)
             {
-                // 시작 위치로 리셋
                 transform.position = new Vector3(startPosition, transform.position.y, transform.position.z);
             }
         }
@@ -45,9 +39,9 @@ public class BackGround : MonoBehaviour
             float distanceX = Mathf.Abs(monster.transform.position.x - slime.transform.position.x);
             if (distanceX <= detectionRange)
             {
-                return true; // 범위 내에 몬스터가 있음
+                return true; 
             }
         }
-        return false; // 범위 내에 몬스터가 없음
+        return false;
     }
 }

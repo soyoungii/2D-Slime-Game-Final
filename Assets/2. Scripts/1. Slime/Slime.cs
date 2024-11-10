@@ -25,22 +25,23 @@ public class Slime : MonoBehaviour
     public float gold = 0;
 
     [Header("스탯 레벨")]
-    private int damageLevel = 1;
-    private int hpLevel = 1;
-    private int hpRecoverLevel = 1;
-    private int criticalLevel = 1;
-    private int criDamLevel = 1;
-    private int atkSpeedLevel = 1;
+    private int damageLevel = 0;
+    private int hpLevel = 0;
+    private int hpRecoverLevel = 0;
+    private int criticalLevel = 0;
+    private int criDamLevel = 0;
+    private int atkSpeedLevel = 0;
     private int dShotLevel = 1;
 
     [Header("파티클")]
     public ParticleSystem hpRecoverParticle;
     public ParticleSystem levelupParticle;
     public ParticleSystem reviveSlime;
+    public ParticleSystem hitParticle;
 
     [Header("투사체")]
     public GameObject projectilePrefab;
-    private float detectionRange = 4f; // 탐지 범위
+    private float findRange = 4f; // 탐지 범위
     private float projectileSpeed = 10f;
     private float nextFireTime;
 
@@ -60,10 +61,10 @@ public class Slime : MonoBehaviour
         UIManager.Instance.damageText.text = damage.ToString();
         UIManager.Instance.hpText.text = maxHp.ToString();
         UIManager.Instance.hpRecoverText.text = hpRecover.ToString();
-        UIManager.Instance.criticalText.text = critical.ToString();
-        UIManager.Instance.criDamText.text = criticalDamage.ToString();
+        UIManager.Instance.criticalText.text = critical + "%".ToString();
+        UIManager.Instance.criDamText.text = criticalDamage + "%".ToString();
         UIManager.Instance.atkSpeedText.text = attackSpeed.ToString();
-        UIManager.Instance.dShotText.text = doubleShot.ToString();
+        UIManager.Instance.dShotText.text = doubleShot + "%".ToString();
 
 
         UIManager.Instance.damageLevel.text = damageLevel.ToString();
@@ -105,7 +106,7 @@ public class Slime : MonoBehaviour
     private void AttackNearestMonster()
     {
         Monster nearestMonster = null;
-        float nearestDistance = detectionRange;
+        float nearestDistance = findRange;
 
         foreach (Monster monster in FindObjectsOfType<Monster>())
         {
@@ -160,6 +161,12 @@ public class Slime : MonoBehaviour
     public void TakeDamage(float damage)
     {
         currentHp -= damage;
+        if(currentHp > 0)
+        {
+            var Hitslime = Instantiate(hitParticle, hitParticle.transform.position, quaternion.identity);
+            Hitslime.Play();
+            Destroy(Hitslime, 1f);
+        }
         if (currentHp <= 0)
         {
             Die();

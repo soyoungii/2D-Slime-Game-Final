@@ -30,7 +30,7 @@ public class Meteor : MonoBehaviour
         while (true)
         {
             cooldownImage.fillAmount = 1f;
-            Monster target = FindNearestMonsterInRange(); // 수정된 함수 사용
+            Monster target = FindNearestMonsterInRange(); 
             if (target != null)
             {
                 GameObject meteor = Instantiate(meteorPrefab, meteorPrefab.transform.position, Quaternion.identity);
@@ -62,7 +62,6 @@ public class Meteor : MonoBehaviour
                     {
                         if (hit.TryGetComponent<Monster>(out Monster monster))
                         {
-                            // 범위 내에 있는 몬스터만 데미지
                             float distanceX = Mathf.Abs(monster.transform.position.x - slime.transform.position.x);
                             if (distanceX <= detectionRange)
                             {
@@ -106,10 +105,8 @@ public class Meteor : MonoBehaviour
 
         foreach (Monster monster in FindObjectsOfType<Monster>())
         {
-            // x축 거리 체크
             float distanceX = Mathf.Abs(monster.transform.position.x - slime.transform.position.x);
 
-            // 범위 내에 있는 몬스터만 고려
             if (distanceX <= detectionRange)
             {
                 float distance = Vector2.Distance(slime.transform.position, monster.transform.position);

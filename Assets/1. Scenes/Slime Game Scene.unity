@@ -10200,13 +10200,14 @@ MonoBehaviour:
   currentHp: 0
   hpRecover: 0
   critical: 0
-  criticalDamage: 0
+  criticalDamage: 100
   attackSpeed: 1
   doubleShot: 0
   gold: 0
   hpRecoverParticle: {fileID: 113576644778668269, guid: d4c571706c5b2c046b5b46692d17a2b1, type: 3}
   levelupParticle: {fileID: 7023885323028556097, guid: 199570f1eab3c674db5ca22383e5785a, type: 3}
   reviveSlime: {fileID: 6821322474934524365, guid: 411e387bd1003844c84ca77b94a6eabf, type: 3}
+  hitParticle: {fileID: 8940381137649641617, guid: c21b568634d0f0f4688ce0f8e966417c, type: 3}
   projectilePrefab: {fileID: 8906345769409748125, guid: f48bb9a3ef7c0f647883743ea0e10ad3, type: 3}
 --- !u!1 &1103661560
 GameObject:

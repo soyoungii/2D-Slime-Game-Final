@@ -52,39 +52,39 @@ public class Starlight : MonoBehaviour
     }
 
 
-    private IEnumerator MoveProjectile(GameObject projectile, Monster initialTarget)
+    private IEnumerator MoveProjectile(GameObject projectile, Monster fistTarget)
     {
         while (projectile != null)
         {
-            if (initialTarget == null)
+            if (fistTarget == null)
             {
-                initialTarget = FindNearestMonsterInRange(); 
-                if (initialTarget == null)
+                fistTarget = FindNearestMonsterInRange(); 
+                if (fistTarget == null)
                 {
                     Destroy(projectile);
                     yield break;
                 }
             }
 
-            float distanceX = Mathf.Abs(initialTarget.transform.position.x - slime.transform.position.x);
+            float distanceX = Mathf.Abs(fistTarget.transform.position.x - slime.transform.position.x);
             if (distanceX > attackRange)
             {
-                initialTarget = FindNearestMonsterInRange();
-                if (initialTarget == null)
+                fistTarget = FindNearestMonsterInRange();
+                if (fistTarget == null)
                 {
                     Destroy(projectile);
                     yield break;
                 }
             }
-            Vector3 direction = (initialTarget.transform.position - projectile.transform.position).normalized;
+            Vector3 direction = (fistTarget.transform.position - projectile.transform.position).normalized;
             projectile.transform.position += direction * projectileSpeed * Time.deltaTime;
 
-            float distanceToTarget = Vector3.Distance(projectile.transform.position, initialTarget.transform.position);
+            float distanceToTarget = Vector3.Distance(projectile.transform.position, fistTarget.transform.position);
             if (distanceToTarget < 0.1f)
             {
-                if (initialTarget != null)
+                if (fistTarget != null)
                 {
-                    initialTarget.TakeDamage(slime.damage * 1.5f);
+                    fistTarget.TakeDamage(slime.damage * 1.5f);
                 }
                 Destroy(projectile);
                 yield break;

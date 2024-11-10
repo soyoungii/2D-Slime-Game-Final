@@ -59,13 +59,11 @@ public class Spawner : MonoBehaviour
             {
                 if (waveCount == 1)
                 {
-                    // 1웨이브는 기본 스탯
                     monster.SetHp(baseHp);
                     monster.SetDamage(baseDamage);
                 }
                 else
                 {
-                    // 2웨이브부터는 증가율 적용 (waveCount - 1을 사용하여 계산)
                     float hp = baseHp * (1 + (waveCount - 1) * plusHp);
                     float damage = baseDamage * (1 + (waveCount - 1) * plusDamage);
                     monster.SetHp(hp);
