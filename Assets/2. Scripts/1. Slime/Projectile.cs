@@ -9,8 +9,8 @@ using static UnityEngine.ParticleSystem;
 
 public class Projectile : MonoBehaviour
 {
-    public float rotateSpeed = 350f; // Åõ»çÃ¼ È¸Àü ¼Óµµ
-    public float baseArcHeight = 2f; // ±âº» Æ÷¹°¼± ³ôÀÌ
+    public float rotateSpeed = 350f; // íˆ¬ì‚¬ì²´ íšŒì „ ì†ë„
+    public float baseArcHeight = 2f; // ê¸°ë³¸ í¬ë¬¼ì„  ë†’ì´
 
     private Vector2 startPosition;
     private Vector2 targetPosition;
@@ -29,13 +29,13 @@ public class Projectile : MonoBehaviour
         projectileSpeed = speed;
         damage = damageAmount;
 
-        // °Å¸® °è»ê
+        // ê±°ë¦¬ ê³„ì‚°
         float distance = Vector2.Distance(start, target);
 
-        // °Å¸®¿¡ µû¸¥ ÀÌµ¿ ½Ã°£ °è»ê
+        // ê±°ë¦¬ì— ë”°ë¥¸ ì´ë™ ì‹œê°„ ê³„ì‚°
         totalTime = distance / speed;
 
-        // °¡±î¿ï¼ö·Ï ³·°Ô, ¸Ö¼ö·Ï ³ô°Ô(ÃÖ¼Ò 1, ÃÖ´ë 4)
+        // ê°€ê¹Œìš¸ìˆ˜ë¡ ë‚®ê²Œ, ë©€ìˆ˜ë¡ ë†’ê²Œ(ìµœì†Œ 1, ìµœëŒ€ 4)
         arcHeight = Mathf.Clamp(distance * 0.2f, 0.2f, 0.5f) * baseArcHeight;
     }
 
@@ -56,7 +56,7 @@ public class Projectile : MonoBehaviour
 
         Vector2 currentPos = Vector2.Lerp(startPosition, targetPosition, progress);
 
-        // Æ÷¹°¼± ³ôÀÌ °è»ê
+        // í¬ë¬¼ì„  ë†’ì´ ê³„ì‚°
         float heightCurve = Mathf.Sin(progress * Mathf.PI);
         float heightOffset = arcHeight * heightCurve;
 

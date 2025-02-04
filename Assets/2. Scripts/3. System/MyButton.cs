@@ -7,7 +7,7 @@ using static Cinemachine.DocumentationSortingAttribute;
 
 public class MyButton : MonoBehaviour
 {
-    private bool isDoubleSpeed = false; //2πËº” ø©∫Œ
+    private bool isDoubleSpeed = false; //2Î∞∞ÏÜç Ïó¨Î∂Ä
     public void Speed2X()
     {
         isDoubleSpeed = !isDoubleSpeed; 
@@ -49,52 +49,52 @@ public class MyButton : MonoBehaviour
 
     public void ClickStarlight()
     {
-        UIManager.Instance.starlightUnlock.SetActive(true);
+        UIManager.Instance.unlockPanels[0].SetActive(true);
     }
 
     public void ClickSphere()
     {
-        UIManager.Instance.sphereUnlock.SetActive(true);
+        UIManager.Instance.unlockPanels[1].SetActive(true);
     }
 
     public void ClickMeteor()
     {
-        UIManager.Instance.meteorUnlock.SetActive(true);
+        UIManager.Instance.unlockPanels[2].SetActive(true);
     }
 
     public void ClickThunder()
     { 
-        UIManager.Instance.thunderUnlock.SetActive(true);
+        UIManager.Instance.unlockPanels[3].SetActive(true);
     }
 
     public void ClickAnger()
     {
-        UIManager.Instance.angerUnlock.SetActive(true);
+        UIManager.Instance.unlockPanels[4].SetActive(true);
 
     }
     public void NoStarlight()
     {
-        UIManager.Instance.starlightUnlock.SetActive(false);
+        UIManager.Instance.unlockPanels[0].SetActive(false);
     }
 
     public void NoSphere()
     {
-        UIManager.Instance.sphereUnlock.SetActive(false);
+        UIManager.Instance.unlockPanels[1].SetActive(false);
     }
 
     public void NoMeteor()
     {
-        UIManager.Instance.meteorUnlock.SetActive(false);
+        UIManager.Instance.unlockPanels[2].SetActive(false);
     }
 
     public void NoThunder()
     {
-        UIManager.Instance.thunderUnlock.SetActive(false);
+        UIManager.Instance.unlockPanels[3].SetActive(false);
     }
 
     public void NoAnger()
     {
-        UIManager.Instance.angerUnlock.SetActive(false);
+        UIManager.Instance.unlockPanels[4].SetActive(false);
     }
 
     public void SkillScreenClose()

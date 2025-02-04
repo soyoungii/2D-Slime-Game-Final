@@ -3,97 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using UnityEngine.Serialization;
 
 
 public class UIManager : SingletonManager<UIManager>
 {
-    [Header("È­¸é ¿ŞÂÊ »ó´Ü ½½¶óÀÓ Á¤º¸")]
-    public Text gold; //ÇöÀç °ñµå(¿ŞÂÊ »ó´Ü)
-    public Text myDamage; //ÇöÀç ÇÃ·¹ÀÌ¾îÀÇ °ø°İ·Â(¿ŞÂÊ »ó´Ü)
+    [Header("í™”ë©´ ì™¼ìª½ ìƒë‹¨ ìŠ¬ë¼ì„ ì •ë³´")]
+    public Text myGold; //í˜„ì¬ ê³¨ë“œ(ì™¼ìª½ ìƒë‹¨)
+    public Text myDamage; //í˜„ì¬ í”Œë ˆì´ì–´ì˜ ê³µê²©ë ¥(ì™¼ìª½ ìƒë‹¨)
     public Text myHp;
 
-    [Header("°­È­Ã¢ µ¥¹ÌÁö Á¤º¸")]
-    public Text damageLevel; //°­È­ È­¸é ¼Ó ÇÃ·¹ÀÌ¾îÀÇ µ¥¹ÌÁö ·¹º§
-    public Text damageText; //°­È­ È­¸é ¼Ó ÇÃ·¹ÀÌ¾îÀÇ µ¥¹ÌÁö(°ø°İ·Â)
-    public Text damageGold; //°­È­ È­¸é ¼Ó µ¥¹ÌÁö °­È­¿¡ ÇÊ¿äÇÑ °ñµå
+    public List<Text> level;
+    public List<Text> valueText;
+    public List<Text> gold;
 
-    [Header("°­È­Ã¢ Ã¼·Â Á¤º¸")]
-    public Text hpLevel; //°­È­ È­¸é ¼Ó ÇÃ·¹ÀÌ¾îÀÇ Hp ·¹º§
-    public Text hpText; //°­È­ È­¸é ¼Ó ÇÃ·¹ÀÌ¾îÀÇ Max Hp
-    public Text hpGold; //°­È­ È­¸é ¼Ó hp °­È­¿¡ ÇÊ¿äÇÑ °ñµå
+    public List<GameObject> lockImages;
+    public List<GameObject> unlockPanels;
+    
+    [Header("ìŠ¤í‚¬ í•´ê¸ˆ ë° ê°•í™” ì‹¤íŒ¨ UI")]
+    public GameObject upgradeNoGold; //ê°•í™” ì‹¤íŒ¨ UI
+    public GameObject skillNoGold; //ìŠ¤í‚¬ í•´ê¸ˆ ì‹¤íŒ¨ UI
 
-    [Header("°­È­Ã¢ Ã¼·Â È¸º¹ Á¤º¸")]
-    public Text hpRecoverLevel; //°­È­ È­¸é ¼Ó ÇÃ·¹ÀÌ¾îÀÇ Ã¼·Â È¸º¹ ·¹º§
-    public Text hpRecoverText; //°­È­ È­¸é ¼Ó ÇÃ·¹ÀÌ¾îÀÇ Ã¼·Â È¸º¹·®
-    public Text hpRecoverGold; //°­È­ È­¸é ¼Ó Ã¼·ÂÈ¸º¹ °­È­¿¡ ÇÊ¿äÇÑ °ñµå
-
-    [Header("°­È­Ã¢ Ä¡¸íÅ¸ È®·ü Á¤º¸")]
-    public Text criticalLevel; //°­È­ È­¸é ¼Ó ÇÃ·¹ÀÌ¾îÀÇ Ä¡¸íÅ¸ È®·ü ·¹º§
-    public Text criticalText; //°­È­ È­¸é ¼Ó ÇÃ·¹ÀÌ¾îÀÇ Ä¡¸íÅ¸ È®·ü
-    public Text criticalGold; //°­È­ È­¸é ¼Ó Ä¡¸íÅ¸ È®·ü °­È­¿¡ ÇÊ¿äÇÑ °ñµå
-
-    [Header("°­È­Ã¢ Ä¡¸íÅ¸ ÇÇÇØ Á¤º¸")]
-    public Text criDamLevel; //°­È­ È­¸é ¼Ó ÇÃ·¹ÀÌ¾îÀÇ Ä¡¸íÅ¸ ÇÇÇØ ·¹º§
-    public Text criDamText; //°­È­ È­¸é  ¼Ó ÇÃ·¹ÀÌ¾îÀÇ Ä¡¸íÅ¸ ÇÇÇØ
-    public Text criDamGold; //°­È­ È­¸é ¼Ó Ä¡¸íÅ¸ ÇÇÇØ °­È­¿¡ ÇÊ¿äÇÑ °ñµå
-
-    [Header("°­È­Ã¢ °ø°İ ¼Óµµ Á¤º¸")]
-    public Text atkSpeedLevel; //°­È­ È­¸é ¼Ó ÇÃ·¹ÀÌ¾îÀÇ °ø°İ ¼Óµµ ·¹º§
-    public Text atkSpeedText; //°­È­ È­¸é ¼Ó ÇÃ·¹ÀÌ¾îÀÇ °ø°İ ¼Óµµ
-    public Text atkSpeedGold; //°­È­ È­¸é ¼Ó °ø°İ ¼Óµµ °­È­¿¡ ÇÊ¿äÇÑ °ñµå
-
-    [Header("°­È­Ã¢ ´õºí¼¦ Á¤º¸")]
-    public Text dShotLevel; //°­È­ È­¸é ¼Ó ÇÃ·¹ÀÌ¾îÀÇ ´õºí¼¦ ·¹º§
-    public Text dShotText; //°­È­ È­¸é ¼Ó ÇÃ·¹ÀÌ¾îÀÇ ´õºí¼¦ È®·ü
-    public Text dShotGold; //°­È­ È­¸é ¼Ó ´õºí¼¦ °­È­¿¡ ÇÊ¿äÇÑ °ñµå
-
-    [Header("½ºÅ³ ÀÚ¹°¼è ÀÌ¹ÌÁö")]
-    public GameObject lockStarlight; //½ºÅ¸¶óÀÌÆ® ½ºÅ³ ÀÚ¹°¼è ÀÌ¹ÌÁö
-    public GameObject lockSphere;
-    public GameObject lockMeteor;
-    public GameObject lockThunder;
-    public GameObject lockAnger;
-
-    [Header("½ºÅ³ ÇØ±İÃ¢ UI")]
-    public GameObject starlightUnlock; // ½ºÅ¸¶óÀÌÆ® ½ºÅ³ ÇØ±İÃ¢ UI
-    public GameObject sphereUnlock; //±¸Ã¼ ½ºÅ³ ÇØ±İÃ¢ UI
-    public GameObject meteorUnlock; //¸ŞÅ×¿À ÇØ±İÃ¢ UI
-    public GameObject thunderUnlock; //º­¶ô ÇØ±İÃ¢ UI
-    public GameObject angerUnlock; //ºĞ³ë ÇØ±İÃ¢ UI
-
-    [Header("½ºÅ³ ÇØ±İÃ¢ °ñµå ÀÌ¹ÌÁö(ÇØ±İ ÈÄ »èÁ¦)")]
-    public GameObject starlightGoldImage; //½ºÅ¸¶óÀÌÆ® °ñµå ÀÌ¹ÌÁö(ÇØ±İ ÈÄ »èÁ¦¿ë)
-    public GameObject sphereGoldImage;
-    public GameObject meteorGoldImage;
-    public GameObject thunderGoldImage;
-    public GameObject angerGoldImage;
-
-    [Header("½ºÅ³ ÇØ±İÃ¢ »ó´Ü ±ÛÀÚ(ÇØ±İ ÈÄ º¯°æ)")]
-    public Text starlightTop; //½ºÅ¸¶óÀÌÆ® »ó´Ü ±ÛÀÚ(ÇØ±İ ÈÄ º¯°æ¿ë)
-    public Text sphereTop;
-    public Text meteorTop;
-    public Text thunderTop;
-    public Text angerTop;
-
-    [Header("½ºÅ³ ÇØ±İÃ¢ ÇÏ´Ü ¹öÆ°1(ÇØ±İ ÈÄ »èÁ¦)")]
-    public GameObject starlightBottom; //½ºÅ¸¶óÀÌÆ® ÇÏ´Ü ¹öÆ°(ÇØ±İ ÈÄ »èÁ¦¿ë)
-    public GameObject sphereBottom;
-    public GameObject meteorBottom;
-    public GameObject thunderBottom;
-    public GameObject angerBottom;
-
-    [Header("½ºÅ³ ÇØ±İÃ¢ ÇÏ´Ü ¹öÆ°2(ÇØ±İ ÈÄ º¯°æ)")]
-    public Text starlightCloseScreen; //½ºÅ¸¶óÀÌÆ® Ã¢´İ±â ±ÛÀÚ(ÇØ±İ ÈÄ º¯°æ¿ë)
-    public Text sphereCloseScreen;
-    public Text meteorCloseScreen;
-    public Text thunderCloseScreen;
-    public Text angerCloseScreen;
-
-    [Header("½ºÅ³ ÇØ±İ ¹× °­È­ ½ÇÆĞ UI")]
-    public GameObject upgradeNoGold; //°­È­ ½ÇÆĞ UI
-    public GameObject skillNoGold; //½ºÅ³ ÇØ±İ ½ÇÆĞ UI
-
-    [Header("È­¸é ¿À¸¥ÂÊ »ó´Ü ¹öÆ°")]
+    [Header("í™”ë©´ ì˜¤ë¥¸ìª½ ìƒë‹¨ ë²„íŠ¼")]
     public GameObject speed2xText;
     public GameObject pauseexit;
 }

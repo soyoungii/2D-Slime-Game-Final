@@ -2027,8 +2027,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecf9883f8fd5c2e478b86a313e5a7b8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  starlightPrefab: {fileID: 9171913282905690074, guid: c8326d2bec42e864b8976bc9dd434cbc, type: 3}
+  skillPrefab: {fileID: 9171913282905690074, guid: c8326d2bec42e864b8976bc9dd434cbc, type: 3}
   cooldownImage: {fileID: 1735454133}
+  cooldown: 0
+  detectionRange: 4
 --- !u!1 &239894284
 GameObject:
   m_ObjectHideFlags: 0
@@ -2148,8 +2150,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31ddad55761f2464494194fc02db9b6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  angerPrefab: {fileID: 7462734797089746673, guid: c63a3f40e00577a458b6d21709723e33, type: 3}
+  skillPrefab: {fileID: 7462734797089746673, guid: c63a3f40e00577a458b6d21709723e33, type: 3}
   cooldownImage: {fileID: 352570723}
+  cooldown: 0
+  detectionRange: 4
 --- !u!1 &282054352
 GameObject:
   m_ObjectHideFlags: 0
@@ -4399,60 +4403,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 154121ffdffaaa949811879a9dedb414, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gold: {fileID: 20029540}
+  myGold: {fileID: 20029540}
   myDamage: {fileID: 282054354}
   myHp: {fileID: 843964423}
-  damageLevel: {fileID: 1791415884}
-  damageText: {fileID: 1015626604}
-  damageGold: {fileID: 1336058919}
-  hpLevel: {fileID: 76470760}
-  hpText: {fileID: 1896767138}
-  hpGold: {fileID: 1713363858}
-  hpRecoverLevel: {fileID: 285109568}
-  hpRecoverText: {fileID: 1034206324}
-  hpRecoverGold: {fileID: 101469489}
-  criticalLevel: {fileID: 2029481215}
-  criticalText: {fileID: 1617802200}
-  criticalGold: {fileID: 1591147076}
-  criDamLevel: {fileID: 363468781}
-  criDamText: {fileID: 926635612}
-  criDamGold: {fileID: 836086822}
-  atkSpeedLevel: {fileID: 1432307945}
-  atkSpeedText: {fileID: 1139032067}
-  atkSpeedGold: {fileID: 1881678167}
-  dShotLevel: {fileID: 1376544999}
-  dShotText: {fileID: 1247512212}
-  dShotGold: {fileID: 1637443080}
-  lockStarlight: {fileID: 1947418469}
-  lockSphere: {fileID: 624486110}
-  lockMeteor: {fileID: 124801330}
-  lockThunder: {fileID: 1980490045}
-  lockAnger: {fileID: 194624933}
-  starlightUnlock: {fileID: 573390280402870404}
-  sphereUnlock: {fileID: 1939880687}
-  meteorUnlock: {fileID: 1158518679}
-  thunderUnlock: {fileID: 621078396}
-  angerUnlock: {fileID: 1637529392}
-  starlightGoldImage: {fileID: 799403500}
-  sphereGoldImage: {fileID: 814845428}
-  meteorGoldImage: {fileID: 510428176}
-  thunderGoldImage: {fileID: 1840554114}
-  angerGoldImage: {fileID: 1970211509}
-  starlightTop: {fileID: 1490534695}
-  sphereTop: {fileID: 1030381770}
-  meteorTop: {fileID: 283194963}
-  thunderTop: {fileID: 370263427}
-  angerTop: {fileID: 941999411}
-  starlightBottom: {fileID: 7304195633994512749}
-  sphereBottom: {fileID: 821544900}
-  meteorBottom: {fileID: 1138410441}
-  thunderBottom: {fileID: 446368153}
-  angerBottom: {fileID: 832228349}
-  starlightCloseScreen: {fileID: 1920415607}
-  sphereCloseScreen: {fileID: 319397542}
-  meteorCloseScreen: {fileID: 1846337825}
-  thunderCloseScreen: {fileID: 1580194116}
-  angerCloseScreen: {fileID: 701842470}
+  level:
+  - {fileID: 1791415884}
+  - {fileID: 76470760}
+  - {fileID: 285109568}
+  - {fileID: 2029481215}
+  - {fileID: 363468781}
+  - {fileID: 1432307945}
+  - {fileID: 1376544999}
+  valueText:
+  - {fileID: 1015626604}
+  - {fileID: 1896767138}
+  - {fileID: 1034206324}
+  - {fileID: 1617802200}
+  - {fileID: 926635612}
+  - {fileID: 1139032067}
+  - {fileID: 1247512212}
+  gold:
+  - {fileID: 1336058919}
+  - {fileID: 1713363858}
+  - {fileID: 101469489}
+  - {fileID: 1591147076}
+  - {fileID: 836086822}
+  - {fileID: 1881678167}
+  - {fileID: 1637443080}
+  lockImages:
+  - {fileID: 1947418469}
+  - {fileID: 624486110}
+  - {fileID: 124801330}
+  - {fileID: 1980490045}
+  - {fileID: 194624933}
+  unlockPanels:
+  - {fileID: 573390280402870404}
+  - {fileID: 1939880687}
+  - {fileID: 1158518679}
+  - {fileID: 621078396}
+  - {fileID: 1637529392}
   upgradeNoGold: {fileID: 571250664}
   skillNoGold: {fileID: 1158037658}
   speed2xText: {fileID: 980600259}
@@ -7819,7 +7808,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1309943689}
   m_Direction: 2
   m_Value: 0.99999994
-  m_Size: 0.5673382
+  m_Size: 0.56733817
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -14474,8 +14463,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bb475c3cc00d064bafc78b75bd6e448, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spherePrefab: {fileID: 5957489163263403539, guid: 8cf4f0f045d79bb4fa7214f9ecd97720, type: 3}
+  skillPrefab: {fileID: 5957489163263403539, guid: 8cf4f0f045d79bb4fa7214f9ecd97720, type: 3}
   cooldownImage: {fileID: 1911490989}
+  cooldown: 0
+  detectionRange: 4
 --- !u!1 &1449200630
 GameObject:
   m_ObjectHideFlags: 0
@@ -14584,11 +14575,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cc92e5d8716cd54191a354074b72efd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  starlight: {fileID: 231840595}
-  sphere: {fileID: 1443636390}
-  meteor: {fileID: 2015964547}
-  thunder: {fileID: 1678169337}
-  anger: {fileID: 257592201}
+  skills:
+  - skill: {fileID: 231840595}
+    cost: 20
+    lockIcon: {fileID: 1947418469}
+    bottomText: {fileID: 7304195633994512749}
+    goldImage: {fileID: 799403500}
+    unlockPanel: {fileID: 573390280402870404}
+    topText: {fileID: 1490534695}
+    closeText: {fileID: 1920415607}
+  - skill: {fileID: 1443636390}
+    cost: 10
+    lockIcon: {fileID: 624486110}
+    bottomText: {fileID: 821544900}
+    goldImage: {fileID: 814845428}
+    unlockPanel: {fileID: 1939880687}
+    topText: {fileID: 1030381770}
+    closeText: {fileID: 319397542}
+  - skill: {fileID: 2015964547}
+    cost: 30
+    lockIcon: {fileID: 124801330}
+    bottomText: {fileID: 1138410441}
+    goldImage: {fileID: 510428176}
+    unlockPanel: {fileID: 1158518679}
+    topText: {fileID: 283194963}
+    closeText: {fileID: 1846337825}
+  - skill: {fileID: 1678169337}
+    cost: 40
+    lockIcon: {fileID: 1980490045}
+    bottomText: {fileID: 446368153}
+    goldImage: {fileID: 1840554114}
+    unlockPanel: {fileID: 621078396}
+    topText: {fileID: 370263427}
+    closeText: {fileID: 1580194116}
+  - skill: {fileID: 257592201}
+    cost: 10
+    lockIcon: {fileID: 194624933}
+    bottomText: {fileID: 832228349}
+    goldImage: {fileID: 1970211509}
+    unlockPanel: {fileID: 1637529392}
+    topText: {fileID: 941999411}
+    closeText: {fileID: 701842470}
 --- !u!4 &1458200390
 Transform:
   m_ObjectHideFlags: 0
@@ -16255,8 +16282,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a174b04e4eb83454eb7cd0b7c427285f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thunderPrefab: {fileID: 8651092647801820165, guid: 6dfdc8190cab6bf4a8aceea507469f6c, type: 3}
+  skillPrefab: {fileID: 8651092647801820165, guid: 6dfdc8190cab6bf4a8aceea507469f6c, type: 3}
   cooldownImage: {fileID: 1094887468}
+  cooldown: 0
+  detectionRange: 4
 --- !u!1 &1683114524
 GameObject:
   m_ObjectHideFlags: 0
@@ -18308,6 +18337,7 @@ GameObject:
   - component: {fileID: 1947418470}
   - component: {fileID: 1947418472}
   - component: {fileID: 1947418471}
+  - component: {fileID: 1947418473}
   m_Layer: 5
   m_Name: LockStarlight
   m_TagString: Untagged
@@ -18372,6 +18402,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1947418469}
   m_CullTransparentMesh: 0
+--- !u!114 &1947418473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1947418469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecf9883f8fd5c2e478b86a313e5a7b8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillPrefab: {fileID: 0}
+  cooldownImage: {fileID: 0}
+  cooldown: 0
+  detectionRange: 4
 --- !u!1 &1954015396
 GameObject:
   m_ObjectHideFlags: 0
@@ -19210,9 +19256,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10557993df19b914893520775beef4dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meteorPrefab: {fileID: 2945441447242900063, guid: 2f9dee9656e3a304fbf645d7c8c89ec7, type: 3}
-  bombParticle: {fileID: 3629311688355055063, guid: 853c3648e25952f4c8138e90c53235a4, type: 3}
+  skillPrefab: {fileID: 2945441447242900063, guid: 2f9dee9656e3a304fbf645d7c8c89ec7, type: 3}
   cooldownImage: {fileID: 211020922}
+  cooldown: 0
+  detectionRange: 4
+  bombParticle: {fileID: 3629311688355055063, guid: 853c3648e25952f4c8138e90c53235a4, type: 3}
 --- !u!1 &2028296865
 GameObject:
   m_ObjectHideFlags: 0

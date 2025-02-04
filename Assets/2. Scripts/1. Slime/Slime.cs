@@ -9,22 +9,22 @@ using Random = UnityEngine.Random;
 
 public class Slime : MonoBehaviour
 {
-    [Header("±‚∫ª Ω∫≈»")]
-    public float damage = 1; //∞¯∞›∑¬ -> ∑π∫ß¥Á 1 ¡ı∞°
+    [Header("Í∏∞Î≥∏ Ïä§ÌÉØ")]
+    public float damage = 1; //Í≥µÍ≤©Î†• -> Î†àÎ≤®Îãπ 1 Ï¶ùÍ∞Ä
 
-    public float maxHp = 5; //√÷¥Î √º∑¬ -> ∑π∫ß¥Á 5 ¡ı∞°
-    public float currentHp; //«ˆ¿Á√º∑¬
-    public float hpRecover = 0; //√º∑¬ »∏∫π∑Æ -> ∑π∫ß¥Á 0.6 ¡ı∞°
+    public float maxHp = 5; //ÏµúÎåÄ Ï≤¥Î†• -> Î†àÎ≤®Îãπ 5 Ï¶ùÍ∞Ä
+    public float currentHp; //ÌòÑÏû¨Ï≤¥Î†•
+    public float hpRecover = 0; //Ï≤¥Î†• ÌöåÎ≥µÎüâ -> Î†àÎ≤®Îãπ 0.6 Ï¶ùÍ∞Ä
 
-    public float critical = 0; //ƒ°∏Ì≈∏ »Æ∑¸ -> Max∞™: 100 -> ∑π∫ß¥Á 1%¡ı∞°
-    public float criticalDamage = 100; //ƒ°∏Ì≈∏ «««ÿ -> ∑π∫ß¥Á 1% ¡ı∞°
+    public float critical = 0; //ÏπòÎ™ÖÌÉÄ ÌôïÎ•† -> MaxÍ∞í: 100 -> Î†àÎ≤®Îãπ 1%Ï¶ùÍ∞Ä
+    public float criticalDamage = 100; //ÏπòÎ™ÖÌÉÄ ÌîºÌï¥ -> Î†àÎ≤®Îãπ 1% Ï¶ùÍ∞Ä
 
-    public float attackSpeed = 1; //∞¯∞›º”µµ ∑π∫ß¥Á 0.1 ¡ı∞° -> ∑π∫ß¥Á 0.1 ¡ı∞° / ∑π∫ß 2∞°µ«∏È 1√ ø° 2π¯
-    public float doubleShot = 0; //¥ı∫Ìº¶ -> ∞¸≈Î »Ωºˆµµ º≥¡§? -> ∑π∫ß¥Á 1%¡ı∞°
+    public float attackSpeed = 1; //Í≥µÍ≤©ÏÜçÎèÑ Î†àÎ≤®Îãπ 0.1 Ï¶ùÍ∞Ä -> Î†àÎ≤®Îãπ 0.1 Ï¶ùÍ∞Ä / Î†àÎ≤® 2Í∞ÄÎêòÎ©¥ 1Ï¥àÏóê 2Î≤à
+    public float doubleShot = 0; //ÎçîÎ∏îÏÉ∑ -> Í¥ÄÌÜµ ÌöüÏàòÎèÑ ÏÑ§Ï†ï? -> Î†àÎ≤®Îãπ 1%Ï¶ùÍ∞Ä
 
     public float gold = 0;
 
-    [Header("Ω∫≈» ∑π∫ß")]
+    [Header("Ïä§ÌÉØ Î†àÎ≤®")]
     private int damageLevel = 0;
     private int hpLevel = 0;
     private int hpRecoverLevel = 0;
@@ -33,13 +33,13 @@ public class Slime : MonoBehaviour
     private int atkSpeedLevel = 0;
     private int dShotLevel = 1;
 
-    [Header("∆ƒ∆º≈¨")]
+    [Header("ÌååÌã∞ÌÅ¥")]
     public ParticleSystem hpRecoverParticle;
     public ParticleSystem levelupParticle;
     public ParticleSystem reviveSlime;
     public ParticleSystem hitParticle;
 
-    [Header("≈ıªÁ√º")]
+    [Header("Ìà¨ÏÇ¨Ï≤¥")]
     public GameObject projectilePrefab;
     private float findRange = 4f;
     private float projectileSpeed = 10f;
@@ -59,34 +59,34 @@ public class Slime : MonoBehaviour
     }
     private void Update()
     {
-        UIManager.Instance.gold.text = gold.ToString();
+        UIManager.Instance.myGold.text = gold.ToString();
         UIManager.Instance.myDamage.text = damage.ToString();
         UIManager.Instance.myHp.text = currentHp.ToString();
 
-        UIManager.Instance.damageText.text = damage.ToString();
-        UIManager.Instance.hpText.text = maxHp.ToString();
-        UIManager.Instance.hpRecoverText.text = hpRecover.ToString();
-        UIManager.Instance.criticalText.text = critical + "%".ToString();
-        UIManager.Instance.criDamText.text = criticalDamage + "%".ToString();
-        UIManager.Instance.atkSpeedText.text = attackSpeed.ToString();
-        UIManager.Instance.dShotText.text = doubleShot + "%".ToString();
+        UIManager.Instance.valueText[0].text = damage.ToString();
+        UIManager.Instance.valueText[1].text = maxHp.ToString();
+        UIManager.Instance.valueText[2].text = hpRecover.ToString();
+        UIManager.Instance.valueText[3].text = critical + "%".ToString();
+        UIManager.Instance.valueText[4].text = criticalDamage + "%".ToString();
+        UIManager.Instance.valueText[5].text = attackSpeed.ToString();
+        UIManager.Instance.valueText[6].text = doubleShot + "%".ToString();
 
 
-        UIManager.Instance.damageLevel.text = damageLevel.ToString();
-        UIManager.Instance.hpLevel.text = hpLevel.ToString();
-        UIManager.Instance.hpRecoverLevel.text = hpRecoverLevel.ToString();
-        UIManager.Instance.criticalLevel.text = criticalLevel.ToString();
-        UIManager.Instance.criDamLevel.text = criDamLevel.ToString();
-        UIManager.Instance.atkSpeedLevel.text = atkSpeedLevel.ToString();
-        UIManager.Instance.dShotLevel.text = dShotLevel.ToString();
+        UIManager.Instance.level[0].text = damageLevel.ToString();
+        UIManager.Instance.level[1].text = hpLevel.ToString();
+        UIManager.Instance.level[2].text = hpRecoverLevel.ToString();
+        UIManager.Instance.level[3].text = criticalLevel.ToString();
+        UIManager.Instance.level[4].text = criDamLevel.ToString();
+        UIManager.Instance.level[5].text = atkSpeedLevel.ToString();
+        UIManager.Instance.level[6].text = dShotLevel.ToString();
 
-        UIManager.Instance.damageGold.text = ((damageLevel + 1) * 10).ToString();
-        UIManager.Instance.hpGold.text = ((hpLevel + 1) * 10).ToString();
-        UIManager.Instance.hpRecoverGold.text = ((hpRecoverLevel + 1) * 10).ToString();
-        UIManager.Instance.criticalGold.text = ((criticalLevel + 1) * 10).ToString();
-        UIManager.Instance.criDamGold.text = ((criDamLevel + 1) * 10).ToString();
-        UIManager.Instance.atkSpeedGold.text = ((atkSpeedLevel + 1) * 10).ToString();
-        UIManager.Instance.dShotGold.text = ((dShotLevel + 1) * 10).ToString();
+        UIManager.Instance.gold[0].text = ((damageLevel + 1) * 10).ToString();
+        UIManager.Instance.gold[1].text = ((hpLevel + 1) * 10).ToString();
+        UIManager.Instance.gold[2].text = ((hpRecoverLevel + 1) * 10).ToString();
+        UIManager.Instance.gold[3].text = ((criticalLevel + 1) * 10).ToString();
+        UIManager.Instance.gold[4].text = ((criDamLevel + 1) * 10).ToString();
+        UIManager.Instance.gold[5].text = ((atkSpeedLevel + 1) * 10).ToString();
+        UIManager.Instance.gold[6].text = ((dShotLevel + 1) * 10).ToString();
 
 
 
@@ -135,22 +135,22 @@ public class Slime : MonoBehaviour
         GameObject projectile = Instantiate(projectilePrefab, projectilePrefab.transform.position, Quaternion.identity);
         Projectile projectileScript = projectile.GetComponent<Projectile>();
 
-        // ≈©∏Æ∆ºƒ√ ∞ËªÍ
+        // ÌÅ¨Î¶¨Ìã∞Ïª¨ Í≥ÑÏÇ∞
         bool isCritical = Random.Range(0f, 100f) < critical;
         float finalDamage = damage;
         if (isCritical)
         {
             finalDamage += damage * (criticalDamage / 100f);
-            Debug.Log($"≈©∏Æ∆ºƒ√! ∏ÛΩ∫≈Õ∞° {finalDamage}¿« «««ÿ∏¶ ¿‘¿Ω");
+            Debug.Log($"ÌÅ¨Î¶¨Ìã∞Ïª¨! Î™¨Ïä§ÌÑ∞Í∞Ä {finalDamage}Ïùò ÌîºÌï¥Î•º ÏûÖÏùå");
         }
 
         projectileScript.Initialize(transform.position, targetPosition, projectileSpeed, finalDamage);
 
-        // ¥ı∫Ìº¶ √≥∏Æ
+        // ÎçîÎ∏îÏÉ∑ Ï≤òÎ¶¨
         if (Random.Range(0f, 100f) < doubleShot)
         {
             StartCoroutine(FireSecondProjectile(targetPosition, finalDamage));
-            Debug.Log("¥ı∫Ìº¶ ≈Õ¡¸");
+            Debug.Log("ÎçîÎ∏îÏÉ∑ ÌÑ∞Ïßê");
         }
     }
 
@@ -330,9 +330,9 @@ public class Slime : MonoBehaviour
     {
         if(gold >= 20)
         {
-            Destroy(UIManager.Instance.lockStarlight.gameObject);
-            Destroy(UIManager.Instance.starlightUnlock.gameObject);
-            //Ω∫≈∏∂Û¿Ã∆Æ Ω∫≈≥ ƒ⁄∑Á∆æ Ω√¿€
+            Destroy(UIManager.Instance.lockImages[0].gameObject);
+            Destroy(UIManager.Instance.unlockPanels[0].gameObject);
+            //Ïä§ÌÉÄÎùºÏù¥Ìä∏ Ïä§ÌÇ¨ ÏΩîÎ£®Ìã¥ ÏãúÏûë
         }
 
        else
@@ -345,9 +345,9 @@ public class Slime : MonoBehaviour
     {
         if(gold>=10)
         {
-            Destroy(UIManager.Instance.lockSphere.gameObject);
-            Destroy(UIManager.Instance.sphereUnlock.gameObject);
-            //∫∏¿ÃµÂ Ω∫≈≥ ƒ⁄∑Á∆æ Ω√¿€
+            Destroy(UIManager.Instance.lockImages[1].gameObject);
+            Destroy(UIManager.Instance.unlockPanels[1].gameObject);
+            //Î≥¥Ïù¥Îìú Ïä§ÌÇ¨ ÏΩîÎ£®Ìã¥ ÏãúÏûë
         }
 
         else
@@ -360,9 +360,9 @@ public class Slime : MonoBehaviour
     {
         if(gold>=30)
         {
-            Destroy(UIManager.Instance.lockMeteor.gameObject);
-            Destroy(UIManager.Instance.meteorUnlock.gameObject);
-            //∏ﬁ≈◊ø¿ Ω∫≈≥ ƒ⁄∑Á∆æ Ω√¿€
+            Destroy(UIManager.Instance.lockImages[2].gameObject);
+            Destroy(UIManager.Instance.unlockPanels[2].gameObject);
+            //Î©îÌÖåÏò§ Ïä§ÌÇ¨ ÏΩîÎ£®Ìã¥ ÏãúÏûë
         }
 
         else
@@ -375,9 +375,9 @@ public class Slime : MonoBehaviour
     {
         if (gold >= 40)
         {
-            Destroy(UIManager.Instance.lockThunder.gameObject);
-            Destroy(UIManager.Instance.thunderUnlock.gameObject);
-            //∫≠∂Ù Ω∫≈≥ ƒ⁄∑Á∆æ Ω√¿€
+            Destroy(UIManager.Instance.lockImages[3].gameObject);
+            Destroy(UIManager.Instance.unlockPanels[3].gameObject);
+            //Î≤ºÎùΩ Ïä§ÌÇ¨ ÏΩîÎ£®Ìã¥ ÏãúÏûë
         }
 
         else
@@ -390,9 +390,9 @@ public class Slime : MonoBehaviour
     {
         if (gold >= 10)
         {
-            Destroy(UIManager.Instance.lockAnger.gameObject);
-            Destroy(UIManager.Instance.angerUnlock.gameObject);
-            //∫–≥Î Ω∫≈≥ ƒ⁄∑Á∆æ Ω√¿€
+            Destroy(UIManager.Instance.lockImages[4].gameObject);
+            Destroy(UIManager.Instance.unlockPanels[4].gameObject);
+            //Î∂ÑÎÖ∏ Ïä§ÌÇ¨ ÏΩîÎ£®Ìã¥ ÏãúÏûë
         }
 
         else

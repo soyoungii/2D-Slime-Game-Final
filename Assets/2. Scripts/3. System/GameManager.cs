@@ -8,8 +8,8 @@ public class GameManager : MonoBehaviour
 {
     private static GameManager instance;
     public static GameManager Instance => instance;
-    internal List<Monster> monsters = new List<Monster>();   //¾À¿¡ Á¸ÀçÇÏ´Â ÀüÃ¼ Àû List
-    internal Slime slime;  //¾À¿¡ Á¸ÀçÇÏ´Â ½½¶óÀÓ °´Ã¼
+    internal List<Monster> monsters = new List<Monster>();   //ì”¬ì— ì¡´ì¬í•˜ëŠ” ì „ì²´ ì  List
+    internal Slime slime;  //ì”¬ì— ì¡´ì¬í•˜ëŠ” ìŠ¬ë¼ì„ ê°ì²´
 
     private void Awake()
     {

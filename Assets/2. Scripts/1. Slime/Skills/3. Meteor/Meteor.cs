@@ -5,31 +5,24 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class Meteor : MonoBehaviour
+public class Meteor : BaseSkill
 {
-    public GameObject meteorPrefab;
     public ParticleSystem bombParticle;
-    public Image cooldownImage;
-    private float cooldown = 3f;
-    private Slime slime;
     private float meteorSpeed = 10f;
-    private float detectionRange = 3.9f; 
 
-    private void Awake()
+    protected override void Awake()
     {
-        slime = FindObjectOfType<Slime>();
+        base.Awake();
+        detectionRange = 3.9f;
+        cooldown = 3f;
     }
 
-    public void StartSkill()
-    {
-        StartCoroutine(MeteorCoroutine());
-    }
-
-    private IEnumerator MeteorCoroutine()
+    protected override IEnumerator SkillCoroutine()
     {
         while (true)
         {
             cooldownImage.fillAmount = 1f;
+
             Monster target = FindNearestMonsterInRange();
             Vector3 targetPosition;
 
@@ -42,7 +35,7 @@ public class Meteor : MonoBehaviour
                 targetPosition = slime.transform.position + new Vector3(detectionRange, 0f, 0f);
             }
 
-            GameObject meteor = Instantiate(meteorPrefab, meteorPrefab.transform.position, Quaternion.identity);
+            GameObject meteor = Instantiate(skillPrefab, skillPrefab.transform.position, Quaternion.identity);
             StartCoroutine(MoveMeteor(meteor, targetPosition));
             Destroy(meteor, 2f);
 
@@ -94,39 +87,4 @@ public class Meteor : MonoBehaviour
             yield return null;
         }
     }
-
-    private IEnumerator Cooldown()
-    {
-        float elapsed = 0f;
-        while (elapsed < cooldown)
-        {
-            elapsed += Time.deltaTime;
-            cooldownImage.fillAmount = 1f - (elapsed / cooldown);
-            yield return null;
-        }
-    }
-
-    private Monster FindNearestMonsterInRange()
-    {
-        Monster nearestMonster = null;
-        float nearestDistance = float.MaxValue;
-
-        foreach (Monster monster in FindObjectsOfType<Monster>())
-        {
-            float distanceX = Mathf.Abs(monster.transform.position.x - slime.transform.position.x);
-
-            if (distanceX <= detectionRange)
-            {
-                float distance = Vector2.Distance(slime.transform.position, monster.transform.position);
-                if (distance < nearestDistance)
-                {
-                    nearestDistance = distance;
-                    nearestMonster = monster;
-                }
-            }
-        }
-
-        return nearestMonster;
-    }
-
 }

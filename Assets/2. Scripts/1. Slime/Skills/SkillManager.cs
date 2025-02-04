@@ -1,111 +1,72 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;  // Text Ïª¥Ìè¨ÎÑåÌä∏Î•º ÏúÑÌïú ÎÑ§ÏûÑÏä§ÌéòÏù¥Ïä§
 
 public class SkillManager : MonoBehaviour
 {
-    public Starlight starlight;
-    public Sphere sphere;
-    public Meteor meteor;
-    public Thunder thunder;
-    public Anger anger;
-    public void UnlockStarlight()
+    [System.Serializable]
+    public class SkillData
     {
-        if (GameManager.Instance.slime.gold >= 20)
-        {
-            GameManager.Instance.slime.gold -= 20;
-            Destroy(UIManager.Instance.lockStarlight.gameObject);
-            Destroy(UIManager.Instance.starlightBottom.gameObject);
-            Destroy(UIManager.Instance.starlightGoldImage.gameObject);
-            UIManager.Instance.starlightUnlock.SetActive(false);
-            starlight.StartSkill();
-            UIManager.Instance.starlightTop.text = "«ÿ±›µ» Ω∫≈≥¿‘¥œ¥Ÿ".ToString();
-            UIManager.Instance.starlightCloseScreen.text = "√¢¥›±‚".ToString();
-        }
-        else
-        {
-            UIManager.Instance.starlightUnlock.SetActive(false);
-            UIManager.Instance.skillNoGold.SetActive(true);
-        }
+        public BaseSkill skill;
+        public int cost;
+        public GameObject lockIcon;
+        public GameObject bottomText;
+        public GameObject goldImage;
+        public GameObject unlockPanel;
+        public Text topText;    
+        public Text closeText;    
     }
 
-public void UnlockSphere()
+    [SerializeField] private List<SkillData> skills;
+    
+    public void UnlockStarlight()
     {
-        if (GameManager.Instance.slime.gold >= 10)
-        {
-            GameManager.Instance.slime.gold -= 10;
-            Destroy(UIManager.Instance.lockSphere.gameObject);
-            Destroy(UIManager.Instance.sphereBottom.gameObject);
-            Destroy(UIManager.Instance.sphereGoldImage.gameObject);
-            sphere.StartSkill();
-            UIManager.Instance.sphereUnlock.SetActive(false);
-            UIManager.Instance.sphereTop.text = "«ÿ±›µ» Ω∫≈≥¿‘¥œ¥Ÿ".ToString();
-            UIManager.Instance.sphereCloseScreen.text = "√¢¥›±‚".ToString();
-        }
-        else
-        {
-            UIManager.Instance.sphereUnlock.SetActive(false);
-            UIManager.Instance.skillNoGold.SetActive(true);
-        }
+        UnlockSkill(0);
+    }
+
+    public void UnlockSphere()
+    {
+        UnlockSkill(1);
     }
 
     public void UnlockMeteor()
     {
-        if (GameManager.Instance.slime.gold >= 30)
-        {
-            GameManager.Instance.slime.gold -= 30;
-            Destroy(UIManager.Instance.lockMeteor.gameObject);
-            Destroy(UIManager.Instance.meteorBottom.gameObject);
-            Destroy(UIManager.Instance.meteorGoldImage.gameObject);
-            meteor.StartSkill();
-            UIManager.Instance.meteorUnlock.SetActive(false);
-            UIManager.Instance.meteorTop.text = "«ÿ±›µ» Ω∫≈≥¿‘¥œ¥Ÿ".ToString();
-            UIManager.Instance.meteorCloseScreen.text = "√¢¥›±‚".ToString();
-        }
-        else
-        {
-            UIManager.Instance.meteorUnlock.SetActive(false);
-            UIManager.Instance.skillNoGold.SetActive(true);
-        }
+        UnlockSkill(2);
     }
 
     public void UnlockThunder()
     {
-        if (GameManager.Instance.slime.gold >= 40)
-        {
-            GameManager.Instance.slime.gold -= 40;
-            Destroy(UIManager.Instance.lockThunder.gameObject);
-            Destroy(UIManager.Instance.thunderBottom.gameObject);
-            Destroy(UIManager.Instance.thunderGoldImage.gameObject);
-            thunder.StartSkill();
-            UIManager.Instance.thunderUnlock.SetActive(false);
-            UIManager.Instance.thunderTop.text = "«ÿ±›µ» Ω∫≈≥¿‘¥œ¥Ÿ".ToString();
-            UIManager.Instance.thunderCloseScreen.text = "√¢¥›±‚".ToString();
-        }
-        else
-        {
-            UIManager.Instance.thunderUnlock.SetActive(false);
-            UIManager.Instance.skillNoGold.SetActive(true);
-        }
+        UnlockSkill(3);
     }
-
 
     public void UnlockAnger()
     {
-        if (GameManager.Instance.slime.gold >= 10)
+        UnlockSkill(4);
+    }
+    
+    private void UnlockSkill(int skillIndex)
+    {
+        var skillData = skills[skillIndex];
+        
+        if (GameManager.Instance.slime.gold >= skillData.cost)
         {
-            GameManager.Instance.slime.gold -= 10;
-            Destroy(UIManager.Instance.lockAnger.gameObject);
-            Destroy(UIManager.Instance.angerBottom.gameObject);
-            Destroy(UIManager.Instance.angerGoldImage.gameObject);
-            anger.StartSkill();
-            UIManager.Instance.angerUnlock.SetActive(false);
-            UIManager.Instance.angerTop.text = "«ÿ±›µ» Ω∫≈≥¿‘¥œ¥Ÿ".ToString();
-            UIManager.Instance.angerCloseScreen.text = "√¢¥›±‚".ToString();
+            GameManager.Instance.slime.gold -= skillData.cost;
+            
+            Destroy(skillData.lockIcon);
+            Destroy(skillData.bottomText);
+            Destroy(skillData.goldImage);
+            
+            skillData.skill.StartSkill();
+            skillData.unlockPanel.SetActive(false);
+            
+            skillData.topText.text = "Ïù¥ÎØ∏ Ìï¥Í∏àÎêú Ïä§ÌÇ¨ÏûÖÎãàÎã§";
+            skillData.closeText.text = "Ï∞ΩÎã´Í∏∞";
         }
         else
         {
-            UIManager.Instance.angerUnlock.SetActive(false);
+            skillData.unlockPanel.SetActive(false);
             UIManager.Instance.skillNoGold.SetActive(true);
         }
     }

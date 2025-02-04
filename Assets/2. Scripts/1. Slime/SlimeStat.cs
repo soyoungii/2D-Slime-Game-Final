@@ -12,13 +12,13 @@ using System;
 public class SlimeStat : Slime
 {
     //public int gold;
-    //public float damage; //°ø°İ·Â -> ·¹º§´ç 1 Áõ°¡
-    //public float hp; //Ã¼·Â -> ·¹º§´ç 5 Áõ°¡
-    //public float hpRecover; //Ã¼·Â È¸º¹·® -> ·¹º§´ç 0.6 Áõ°¡
-    //public float critical; //Ä¡¸íÅ¸ È®·ü -> Max°ª: 100 -> ·¹º§´ç 1%Áõ°¡
-    //public float criticalDamage; //Ä¡¸íÅ¸ ÇÇÇØ -> ·¹º§´ç 1% Áõ°¡
-    //public float attackSpeed; //°ø°İ¼Óµµ ·¹º§´ç 0.1 Áõ°¡ -> ·¹º§´ç 0.1 Áõ°¡ / ·¹º§ 2°¡µÇ¸é 1ÃÊ¿¡ 2¹ø
-    //public float doubleShot; //´õºí¼¦ -> °üÅë È½¼öµµ ¼³Á¤? -> ·¹º§´ç 1%Áõ°¡?1Áõ°¡?
+    //public float damage; //ê³µê²©ë ¥ -> ë ˆë²¨ë‹¹ 1 ì¦ê°€
+    //public float hp; //ì²´ë ¥ -> ë ˆë²¨ë‹¹ 5 ì¦ê°€
+    //public float hpRecover; //ì²´ë ¥ íšŒë³µëŸ‰ -> ë ˆë²¨ë‹¹ 0.6 ì¦ê°€
+    //public float critical; //ì¹˜ëª…íƒ€ í™•ë¥  -> Maxê°’: 100 -> ë ˆë²¨ë‹¹ 1%ì¦ê°€
+    //public float criticalDamage; //ì¹˜ëª…íƒ€ í”¼í•´ -> ë ˆë²¨ë‹¹ 1% ì¦ê°€
+    //public float attackSpeed; //ê³µê²©ì†ë„ ë ˆë²¨ë‹¹ 0.1 ì¦ê°€ -> ë ˆë²¨ë‹¹ 0.1 ì¦ê°€ / ë ˆë²¨ 2ê°€ë˜ë©´ 1ì´ˆì— 2ë²ˆ
+    //public float doubleShot; //ë”ë¸”ìƒ· -> ê´€í†µ íšŸìˆ˜ë„ ì„¤ì •? -> ë ˆë²¨ë‹¹ 1%ì¦ê°€?1ì¦ê°€?
 
     //public int damageLevel;
     ////public int damageCount;

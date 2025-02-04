@@ -6,13 +6,13 @@ using UnityEngine;
 
 public class Monster : MonoBehaviour
 {
-    [Tooltip("Ä³¸¯ÅÍ¿¡°Ô ÁÖ´Â ÇÇÇØ·®")]
-    public float damage = 1; //°ø°İ·Â
-    [Tooltip("¸ó½ºÅÍ Ã¼·Â")]
-    public float hp = 1f; //Ã¼·Â
-    public float moveSpeed; //ÀÌµ¿¼Óµµ
+    [Tooltip("ìºë¦­í„°ì—ê²Œ ì£¼ëŠ” í”¼í•´ëŸ‰")]
+    public float damage = 1; //ê³µê²©ë ¥
+    [Tooltip("ëª¬ìŠ¤í„° ì²´ë ¥")]
+    public float hp = 1f; //ì²´ë ¥
+    public float moveSpeed; //ì´ë™ì†ë„
 
-    private Transform target; //ÃßÀû ´ë»ó(½½¶óÀÓ)
+    private Transform target; //ì¶”ì  ëŒ€ìƒ(ìŠ¬ë¼ì„)
     private Rigidbody2D rb;
     public ParticleSystem monsterDieParticle;
 
@@ -82,7 +82,7 @@ public class Monster : MonoBehaviour
         var particle = Instantiate(monsterDieParticle, transform.position, Quaternion.identity);
         particle.Play();
         Destroy(particle.gameObject, 2f);
-        //LeanPool.Despawn(gameObject); -> leanpool »ç¿ë½Ã ÀÌ°É·Î ¹Ù²Ù±â
+        //LeanPool.Despawn(gameObject); -> leanpool ì‚¬ìš©ì‹œ ì´ê±¸ë¡œ ë°”ê¾¸ê¸°
     }
 
     private IEnumerator Projectile()

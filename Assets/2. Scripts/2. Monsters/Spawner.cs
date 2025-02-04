@@ -8,13 +8,13 @@ public class Spawner : MonoBehaviour
 {
     private int monsterCount = 10;
 
-    public GameObject monsterPrefab; // Àû ÇÁ¸®ÆÕ
+    public GameObject monsterPrefab; // ì  í”„ë¦¬íŒ¹
     public float spawnInterval = 3f; 
     private int waveCount = 0;
     private int wavesSinceReset = 0;
 
-    private float spawnStartX = 4f; // Ã¹ ¹øÂ° ¸ó½ºÅÍ ½ºÆù À§Ä¡
-    public float monsterSpacing = 0.5f; // ¸ó½ºÅÍ °£ °£°İ
+    private float spawnStartX = 4f; // ì²« ë²ˆì§¸ ëª¬ìŠ¤í„° ìŠ¤í° ìœ„ì¹˜
+    public float monsterSpacing = 0.5f; // ëª¬ìŠ¤í„° ê°„ ê°„ê²©
 
     private float baseHp;
     private float baseDamage;

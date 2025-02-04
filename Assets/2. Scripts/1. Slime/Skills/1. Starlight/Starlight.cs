@@ -1,35 +1,21 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel.Design;
-using Unity.VisualScripting;
-using Unity.VisualScripting.Antlr3.Runtime.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-
-public class Starlight : MonoBehaviour
+public class Starlight : BaseSkill
 {
-    public GameObject starlightPrefab;
-    public Image cooldownImage;
-    private float cooldown = 7f;
-    private Slime slime;
-
     private float attackRange = 4f;
     private float projectileSpeed = 5f;
     private int projectileCount = 10;
     private float spawnInterval = 0.5f;
 
-    private void Awake()
+    protected override void Awake()
     {
-        slime = FindObjectOfType<Slime>();
+        base.Awake();
+        cooldown = 7f;
     }
 
-    public void StartSkill()
-    {
-        StartCoroutine(StarlightCoroutine());
-    }
-
-    private IEnumerator StarlightCoroutine()
+    protected override IEnumerator SkillCoroutine()
     {
         while (true)
         {
@@ -38,7 +24,7 @@ public class Starlight : MonoBehaviour
             for (int i = 0; i < projectileCount; i++)
             {
                 Monster target = FindNearestMonsterInRange();
-                GameObject starlight = Instantiate(starlightPrefab, starlightPrefab.transform.position, Quaternion.identity);
+                GameObject starlight = Instantiate(skillPrefab, skillPrefab.transform.position, Quaternion.identity);
 
                 if (target != null)
                 {
@@ -52,45 +38,40 @@ public class Starlight : MonoBehaviour
 
                 yield return new WaitForSeconds(spawnInterval);
             }
-
-            yield return StartCoroutine(Cooldown());
+            
+            yield return StartCoroutine(Cooldown()); 
         }
     }
 
-
-    private IEnumerator MoveProjectile(GameObject projectile, Monster fistTarget)
+    private IEnumerator MoveProjectile(GameObject projectile, Monster firstTarget)
     {
         while (projectile != null)
         {
-            if (fistTarget == null)
+            if (firstTarget == null)
             {
-                fistTarget = FindNearestMonsterInRange(); 
-                if (fistTarget == null)
-                {
-                    Destroy(projectile);
-                    yield break;
-                }
+                Destroy(projectile); 
+                yield break;
             }
 
-            float distanceX = Mathf.Abs(fistTarget.transform.position.x - slime.transform.position.x);
+            float distanceX = Mathf.Abs(firstTarget.transform.position.x - slime.transform.position.x);
             if (distanceX > attackRange)
             {
-                fistTarget = FindNearestMonsterInRange();
-                if (fistTarget == null)
+                if (firstTarget == null)
                 {
                     Destroy(projectile);
                     yield break;
                 }
             }
-            Vector3 direction = (fistTarget.transform.position - projectile.transform.position).normalized;
+
+            Vector3 direction = (firstTarget.transform.position - projectile.transform.position).normalized;
             projectile.transform.position += direction * projectileSpeed * Time.deltaTime;
 
-            float distanceToTarget = Vector3.Distance(projectile.transform.position, fistTarget.transform.position);
+            float distanceToTarget = Vector3.Distance(projectile.transform.position, firstTarget.transform.position);
             if (distanceToTarget < 0.1f)
             {
-                if (fistTarget != null)
+                if (firstTarget != null)
                 {
-                    fistTarget.TakeDamage(slime.damage * 1.5f);
+                    firstTarget.TakeDamage(slime.damage * 1.5f);
                 }
                 Destroy(projectile);
                 yield break;
@@ -99,6 +80,7 @@ public class Starlight : MonoBehaviour
             yield return null;
         }
     }
+
     private IEnumerator MoveProjectileToPosition(GameObject projectile, Vector3 targetPosition)
     {
         while (projectile != null)
@@ -116,45 +98,6 @@ public class Starlight : MonoBehaviour
             yield return null;
         }
     }
-
-    private IEnumerator Cooldown()
-    {
-        float elapsed = 0f;
-        while (elapsed < cooldown)
-        {
-            elapsed += Time.deltaTime;
-            if (cooldownImage != null)
-            {
-                cooldownImage.fillAmount = 1f - (elapsed / cooldown);
-            }
-            yield return null;
-        }
-    }
-
-
-    private Monster FindNearestMonsterInRange()
-    {
-        Monster nearestMonster = null;
-        float nearestDistance = float.MaxValue;
-
-        foreach (Monster monster in FindObjectsOfType<Monster>())
-        {
-            float distanceX = Mathf.Abs(monster.transform.position.x - slime.transform.position.x);
-
-            if (distanceX <= attackRange)
-            {
-                float distance = Vector2.Distance(slime.transform.position, monster.transform.position);
-                if (distance < nearestDistance)
-                {
-                    nearestDistance = distance;
-                    nearestMonster = monster;
-                }
-            }
-        }
-
-        return nearestMonster;
-    }
-
 }
 
 

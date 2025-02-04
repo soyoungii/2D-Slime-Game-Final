@@ -4,31 +4,22 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Anger : MonoBehaviour
+public class Anger : BaseSkill
 {
-    public GameObject angerPrefab;
-    public Image cooldownImage;
-    private float cooldown = 20f;
-    private Slime slime;
     private GameObject currentAngerEffect;
 
-    private void Awake()
+    protected override void Awake()
     {
-        slime = FindObjectOfType<Slime>();
+        base.Awake();
+        cooldown = 20f;
     }
 
-    public void StartSkill()
-    {
-        StartCoroutine(AngerCoroutine());
-    }
-
-
-    private IEnumerator AngerCoroutine()
+    protected override IEnumerator SkillCoroutine()
     {
         while (true)
         {
             cooldownImage.fillAmount = 1f;
-            currentAngerEffect = Instantiate(angerPrefab, angerPrefab.transform.position, Quaternion.identity);
+            currentAngerEffect = Instantiate(skillPrefab, skillPrefab.transform.position, Quaternion.identity);
             float originalDamage = slime.damage;
             slime.damage *= 2f;
             yield return new WaitForSeconds(10f);
@@ -37,20 +28,9 @@ public class Anger : MonoBehaviour
             {
                 Destroy(currentAngerEffect);
             }
+            
             slime.damage = originalDamage;
             yield return StartCoroutine(Cooldown());
         }
     }
-
-    private IEnumerator Cooldown()
-    {
-        float elapsed = 0f;
-        while (elapsed < cooldown)
-        {
-            elapsed += Time.deltaTime;
-            cooldownImage.fillAmount = 1f - (elapsed / cooldown);
-            yield return null;
-        }
-    }
-
 }
