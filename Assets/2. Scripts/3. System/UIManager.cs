@@ -17,7 +17,6 @@ public class UIManager : SingletonManager<UIManager>
     public List<Text> valueText;
     public List<Text> gold;
 
-    public List<GameObject> lockImages;
     public List<GameObject> unlockPanels;
     
     [Header("스킬 해금 및 강화 실패 UI")]

@@ -31,7 +31,7 @@ public class Slime : MonoBehaviour
     private int criticalLevel = 0;
     private int criDamLevel = 0;
     private int atkSpeedLevel = 0;
-    private int dShotLevel = 1;
+    private int dShotLevel = 0;
 
     [Header("파티클")]
     public ParticleSystem hpRecoverParticle;
@@ -324,81 +324,6 @@ public class Slime : MonoBehaviour
         var particle = Instantiate(levelupParticle, transform.position, Quaternion.identity);
         particle.Play();
         Destroy(particle.gameObject, 2f);
-    }
-
-    public void StarlightUnlock()
-    {
-        if(gold >= 20)
-        {
-            Destroy(UIManager.Instance.lockImages[0].gameObject);
-            Destroy(UIManager.Instance.unlockPanels[0].gameObject);
-            //스타라이트 스킬 코루틴 시작
-        }
-
-       else
-        {
-            UIManager.Instance.skillNoGold.SetActive(true);
-        }
-    }
-
-    public  void SphereUnlock()
-    {
-        if(gold>=10)
-        {
-            Destroy(UIManager.Instance.lockImages[1].gameObject);
-            Destroy(UIManager.Instance.unlockPanels[1].gameObject);
-            //보이드 스킬 코루틴 시작
-        }
-
-        else
-        {
-            UIManager.Instance.skillNoGold.SetActive(true);
-        }
-    }
-
-    public void MeteorUnlock()
-    {
-        if(gold>=30)
-        {
-            Destroy(UIManager.Instance.lockImages[2].gameObject);
-            Destroy(UIManager.Instance.unlockPanels[2].gameObject);
-            //메테오 스킬 코루틴 시작
-        }
-
-        else
-        {
-            UIManager.Instance.skillNoGold.SetActive(true);
-        }
-    }
-
-    public void ThunderUnlock()
-    {
-        if (gold >= 40)
-        {
-            Destroy(UIManager.Instance.lockImages[3].gameObject);
-            Destroy(UIManager.Instance.unlockPanels[3].gameObject);
-            //벼락 스킬 코루틴 시작
-        }
-
-        else
-        {
-            UIManager.Instance.skillNoGold.SetActive(true);
-        }
-    }
-
-    public void AngerUnlock()
-    {
-        if (gold >= 10)
-        {
-            Destroy(UIManager.Instance.lockImages[4].gameObject);
-            Destroy(UIManager.Instance.unlockPanels[4].gameObject);
-            //분노 스킬 코루틴 시작
-        }
-
-        else
-        {
-            UIManager.Instance.skillNoGold.SetActive(true);
-        }
     }
 }
 
