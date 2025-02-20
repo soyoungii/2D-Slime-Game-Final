@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class SingletonManager<T> : MonoBehaviour where T : MonoBehaviour
 {
     private static T instance;
-    public static T Instance { get { return instance; } } // Get¸¸ °¡´ÉÇÑ public propertie
+    public static T Instance { get { return instance; } } // Getï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ public propertie
 
     protected virtual void Awake()
     {
